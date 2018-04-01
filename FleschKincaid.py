@@ -99,3 +99,5 @@ class FleschKincaid(object):
 		#print("Added together: " + str(added))
 		#print("Minus 15.59: " + str(result))
 		return int(round(result))
+
+	
