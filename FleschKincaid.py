@@ -11,24 +11,34 @@ class FleschKincaid(object):
 			d = cmudict.dict()  # Instantiates nltk
 
 			word_count = 0
-			sentence_count = 1
+			sentence_count = 0
 			syllable_count = 0
 
 			for word in body.split():
-				if word == '':
+				try:
+					if word == '':
+						pass
+					else:
+						word_count += 1
+						word = self.remove_digits(word)
+						sentence_count += self.sentence_count(word, sentence_count)
+						word = self.remove_punc(word)
+						syllable_count += self.nsyl(word, d)[0]
+				except KeyError as e:
+					#print('KeyError: ' + str(e) + '. This error is usually generated because a word was misspelled, or a contraction was used. Skipping over the word for now, but it wouldnt hurt to check the text!')
 					pass
-				else:
-					word_count += 1
-					word = self.remove_digits(word)
-					sentence_count += self.sentence_count(word, sentence_count)
-					word = self.remove_punc(word)
-					syllable_count += self.nsyl(word, d)[0]
-
+			#print("Word count : " + str(word_count))
+			#print("Sentence total: " + str(sentence_count))
+			if sentence_count == 0:
+				sentence_count = 1
 			average_words = self.average_words(word_count, sentence_count)
 			average_syllables = self.average_syllables(syllable_count, word_count)
+			#print("Avg words: " + str(average_words))
+			#print("Avg syllables: " + str(average_syllables))
 			return self.formula(average_words, average_syllables)
-		except KeyError as e:
-			return 'KeyError: ' + str(e) + '. This error is usually thrown when a word passed to grade() is unrecognized by the nltk library, or if there is no text. Did you spell the word correctly? You can read more about this libary here: https://www.nltk.org/'
+		except Exception as e:
+			return e
+
 
 	def remove_digits(word):
 		remove_digits = str.maketrans('', '', digits)
@@ -37,14 +47,16 @@ class FleschKincaid(object):
 
 
 	def sentence_count(word, sentence_count):
+		sentences = 0
 		endings_repeat = ["..", "??", "!!"]
 		if any(i in word for i in endings_repeat):
-			sentence_count += 1
+			sentences += 1
+			return sentences
 		else:
-			sentence_count += word.count(".")
-			sentence_count += word.count("?")
-			sentence_count += word.count("!")
-			return sentence_count
+			sentences += word.count(".")
+			sentences += word.count("?")
+			sentences += word.count("!")
+			return sentences
 
 
 	def remove_punc(word):
@@ -62,7 +74,6 @@ class FleschKincaid(object):
 	def nsyl(word, d):
 		syllables = [len(list(y for y in x if isdigit(y[-1]))) for x in d[word.lower()]]
 		return syllables
-
 
 	def average_words(word_count, sentence_count):
 		average_words = word_count / sentence_count
@@ -83,4 +94,8 @@ class FleschKincaid(object):
 		syllables = (average_syllables * 11.8)
 		added = (words + syllables)
 		result = (added - 15.59)
+		#print("Words * .39: " + str(words))
+		#print("Syllables * 11.8: " + str(syllables))
+		#print("Added together: " + str(added))
+		#print("Minus 15.59: " + str(result))
 		return int(round(result))
