@@ -14,3 +14,16 @@ Example:
     > 1
     > FleschKincaid.grade("In English, grammar is so very important. That is why I have made this fantastic tool!")
     > 4
+
+Note: Requires curses and nltk libraries. For curses on Windows, follow this guide:
+
+https://stackoverflow.com/questions/32417379/what-is-needed-for-curses-in-python-3-4-on-windows7
+
+And for nltk, run the following:
+
+    # pip install nltk
+    # python
+    > import nltk
+    > nltk.download()
+
+Download the full nltk library from the GUI that pops up.
