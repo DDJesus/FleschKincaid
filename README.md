@@ -15,7 +15,9 @@ Example:
     > FleschKincaid.grade("In English, grammar is so very important. That is why I have made this fantastic tool!")
     > 4
 
-Note: Requires curses and nltk libraries. For curses on Windows, follow this guide:
+Also comes with "debugging" if you want to see how it is estimating the grade level. Just pass in debug_mode=True along with the body of text you want to grade and you can see the output of everything.
+
+## Note: Requires curses and nltk libraries. For curses on Windows, follow this guide:
 
 https://stackoverflow.com/questions/32417379/what-is-needed-for-curses-in-python-3-4-on-windows7
 
