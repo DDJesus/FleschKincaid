@@ -22,6 +22,8 @@ class FleschKincaid(object):
 						word_count += 1
 						word = self.remove_digits(word)
 						sentence_count += self.sentence_count(word, sentence_count)
+						if "'" in word:
+							word = word.split("'", maxsplit=1)[0]
 						word = self.remove_punc(word)
 						syllable_count += self.nsyl(word, d)[0]
 				except KeyError as e:
@@ -99,5 +101,3 @@ class FleschKincaid(object):
 		#print("Added together: " + str(added))
 		#print("Minus 15.59: " + str(result))
 		return int(round(result))
-
-	
