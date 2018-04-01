@@ -32,6 +32,7 @@ class FleschKincaid(object):
 
             debug_items.append(str(word_count))
             debug_items.append(str(sentence_count))
+            debug_items.append(str(syllable_count))
             if sentence_count == 0:
                 sentence_count = 1
             average_words = self.average_words(word_count, sentence_count)
@@ -113,7 +114,8 @@ class FleschKincaid(object):
 
 
     def debugging(debug_items):
-        var_list = ["word count", "sentence_count", "average_words", "average_syllables", "words * .39", "syllables * 11.8", "added", "result"]
+        var_list = ["word_count", "sentence_count", "syllable_count", "average_words", "average_syllables", 
+                    "words * .39", "syllables * 11.8", "added", "result"]
         for index, item in enumerate(var_list):
             print(item + ": " + debug_items[index])
 
