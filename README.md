@@ -15,7 +15,7 @@ Example:
     > FleschKincaid.grade("In English, grammar is so very important. That is why I have made this fantastic tool!")
     > 4
 
-Also comes with "debugging" if you want to see how it is estimating the grade level. Just pass in debug_mode=True along with the body of text you want to grade and you can see the output of everything.
+Also comes with "debugging" if you want to see how it is estimating the grade level. Just pass in debug=True along with the body of text you want to grade and you can see the output of everything.
 
 ## Note: Requires curses and nltk libraries. For curses on Windows, follow this guide:
 
